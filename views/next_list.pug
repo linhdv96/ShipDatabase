@@ -1,0 +1,35 @@
+html(lang="en")
+head
+	title  Shipping Database - Ships from around the world
+	meta(charset="utf-8")
+	meta(name="viewport", content="width=device-width, initial-scale=1")
+	link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
+body
+	.container
+		#header
+			h1  Shipping Database 
+			a(href="http://localhost:3000")  HomeReset
+			br
+			br
+		#content.well
+			br
+			.row(style="")
+				.col-sm-2: b Ten tau
+				.col-sm-2: b IMO
+				.col-sm-4: b Chu tau
+				.col-sm-2: b Flag
+			br
+			each rs in result
+				.row
+					.col-sm-2 #{rs.Name}
+					.col-sm-2 #{rs.IMO}
+					.col-sm-4 #{rs.Owners}
+					.col-sm-2 #{rs.Flag}
+					
+					.col-sm-1
+						form(action="/detail" method="get") 
+							input(type = "submit" value = "view")
+							input(type = "hidden" name="_id" value = rs._id)
+
+			form(action="/next_list" method="post")
+				b: input(type="submit" value="Next >>" onclick="next();")

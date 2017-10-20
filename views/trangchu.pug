@@ -1,0 +1,105 @@
+html(lang="en")
+	head
+		title  Shipping Database - Ships from around the world
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
+		script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+	body
+		.container
+			#header
+				h1  Shipping Database 
+				a(href="http://localhost:3000")  HomeReset
+				br
+				br
+			#content.well
+				.row
+					.col-sm-5: h3 Search Name
+						form(action="")
+							input#search_name(type="text")
+					.col-sm-3: h3 Search IMO
+						form(action="")
+							input#search_imo(type="text")
+							input#check(type="checkbox" name="check")
+							small Tim kiem chinh xac ma IMO
+				p#list_ship 
+
+
+		script.
+			$(document).ready(() => {
+				//search name---------------------------------------------------------------------------
+				$("#search_name").keyup(func = () => {
+					let content = $("#search_name").val();
+					$.post('search_name', 'name='+content, (data, status)=>{
+						let code="<div class='row'>"
+									+"<div class='col-sm-2'> <b>Ten tau</b> </div>"
+									+"<div class='col-sm-2'> <b>IMO</b> </div>"
+									+"<div class='col-sm-4'> <b>Chu tau</b> </div>"
+									+"<div class='col-sm-2'> <b>Flag</b> </div>"
+								+"</div>";
+						for(let i=0; i<data.length; i++)
+						{
+							code=code 
+								+"<div class='row'>"
+									+"<div class='col-sm-2'>" + data[i].Name + "</div>"
+									+"<div class='col-sm-2'>" + data[i].IMO + "</div>"
+									+"<div class='col-sm-4'>" + data[i].Owners + "</div>"
+									+"<div class='col-sm-2'>" + data[i].Flag + "</div>"
+									+"<div class='col-sm-1'>"
+										+"<form action='/detail' method='get'>"
+											+"<input type='hidden' name='_id' value=" + data[i]._id + ">"
+											+"<input type='submit' value='view'>"
+										+"</form>"
+									+"</div>"
+								+"</div>";
+						}
+
+						code=code
+								+"<form action='/next_list' method='post'>"
+									+"<b> <input type='submit' value='Next >>'> </b>";
+
+						$("#list_ship").html(code);
+					});
+
+				});
+
+				//search imo------------------------------------------------------------------------------
+				$("#search_imo").keyup(func2 = () => {
+					let content = $("#search_imo").val();
+					let check = 0;
+					if($('#check').is(':checked')) check = 1;
+					$.post('search_imo', 'imo='+content+'&check='+check, (data, status)=>{
+						let code="<div class='row'>"
+									+"<div class='col-sm-2'> <b>Ten tau</b> </div>"
+									+"<div class='col-sm-2'> <b>IMO</b> </div>"
+									+"<div class='col-sm-4'> <b>Chu tau</b> </div>"
+									+"<div class='col-sm-2'> <b>Flag</b> </div>"
+								+"</div>";
+						for(let i=0; i<data.length; i++)
+						{
+							code=code 
+								+"<div class='row'>"
+									+"<div class='col-sm-2'>" + data[i].Name + "</div>"
+									+"<div class='col-sm-2'>" + data[i].IMO + "</div>"
+									+"<div class='col-sm-4'>" + data[i].Owners + "</div>"
+									+"<div class='col-sm-2'>" + data[i].Flag + "</div>"
+									+"<div class='col-sm-1'>"
+										+"<form action='/detail' method='get'>"
+											+"<input type='hidden' name='_id' value=" + data[i]._id + ">"
+											+"<input type='submit' value='view'>"
+										+"</form>"
+									+"</div>"
+								+"</div>";
+						}
+
+						code=code
+								+"<form action='/next_list' method='post'>"
+									+"<b> <input type='submit' value='Next >>'> </b>";
+
+						$("#list_ship").html(code);
+					});
+
+				});
+				
+				
+			});

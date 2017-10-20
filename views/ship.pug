@@ -1,0 +1,26 @@
+doctype html
+html(lang="en")
+    head
+        title  Shipping Database - Ships from around the world 
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
+    body
+        .container
+            #header
+                h1  Shipping Database 
+                a(href="http://localhost:3000")  HomeReset
+                br
+                br
+            #content.well
+                b
+                    h3 Detals
+                    p IMO: #{result.IMO}
+                    p Name: #{result.Name}
+                    p Type: #{result.Type}
+                    p Year: #{result.Year}
+                    p Flag: #{result.Flag}
+                    p Grt: #{result.GRT}
+                    p DWT: #{result.DWT}
+                    p Speed: #{result.Speed}
+                    p Owner: #{result.Owners}
