@@ -102,16 +102,15 @@ MongoClient.connect(url).then((db)=>{
 		db.collection("ship3").insertMany(result);
 	}
 
+	//TRANGCHU
+	app.get("/", (req, res)=>{
+		res.render("trangchu.pug");
+	});
 
 
 }).catch((err) => {
 		console.log(err);
 });
 
-
-//TRANGCHU
-app.get("/", (req, res)=>{
-	res.render("trangchu.pug");
-});
 
 server.listen(3000);
